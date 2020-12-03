@@ -55,18 +55,20 @@ rl.question(
   prompt.trim(),
   ( answer ) => {
     if ( answer.trim().toLowerCase() !== 'yes' ){
+
       console.log(`That's probably for the best...`);
       process.exit(0);
+
     } else { // the answer is yes, user is sure
+
       console.log(`Ok, resizing your ${FILE} to ${size}...`);
 
       const main = cp.exec(`
-      swapoff -a
-      dd if=/dev/zero of=${FILE} bs=250M count=${sizeAsNumber*4}
-      # truncate -s ${sizeAsNumber}G ${FILE}
-      chmod 600 ${FILE}
-      mkswap ${FILE}
-      swapon ${FILE}
+        swapoff -a                                                 &&
+        dd if=/dev/zero of=${FILE} bs=250M count=${sizeAsNumber*4} &&
+        chmod 600 ${FILE}                                          &&
+        mkswap ${FILE}                                             &&
+        swapon ${FILE}
       `,{ encoding:'utf8' });
       main.stderr.on('data', data => console.error(data) );
 
@@ -77,9 +79,13 @@ rl.question(
         }, 250
       );
 
-      main.on('close', ()=> {
+      main.on('close', (code)=> {
         clearInterval(timer);
-        console.error('Finished. Have a lot of fun!')
+        if ( code == 0 ){
+          console.error('Finished. Have a lot of fun!');
+        } else {
+          console.error('This did NOT work out. Contact the Teacher!')
+        }
       });
     }
     
