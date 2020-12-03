@@ -2,8 +2,7 @@
 
 /*
   INSTALL:
-  sudo npm install -g git+https://github.com/hakt0r/swap-pump
-*/
+  */
 
 const fs = require('fs');
 const cp = require('child_process');
@@ -63,7 +62,8 @@ rl.question(
 
       const main = cp.exec(`
       swapoff -a
-      dd if=/dev/zero of=${FILE} bs=1G count=${sizeAsNumber}
+      dd if=/dev/zero of=${FILE} bs=250M count=${sizeAsNumber*4}
+      # truncate -s ${sizeAsNumber}G ${FILE}
       chmod 600 ${FILE}
       mkswap ${FILE}
       swapon ${FILE}
@@ -82,5 +82,6 @@ rl.question(
         console.error('Finished. Have a lot of fun!')
       });
     }
+    
     rl.close();
 });
