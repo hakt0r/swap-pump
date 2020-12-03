@@ -1,0 +1,22 @@
+{
+  "name": "swap-pump",
+  "version": "1.0.0",
+  "description": "This small app tries to increase your swapfile's size",
+  "main": "index.js",
+  "bin": { "swap-pump": "index.js" },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hakt0r/swap-pump.git"
+  },
+  "keywords": [
+    "swap",
+    "increase",
+    "performance"
+  ],
+  "author": "anx <anx@hktr.de>",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/hakt0r/swap-pump/issues"
+  },
+  "homepage": "https://github.com/hakt0r/swap-pump#readme"
+}
